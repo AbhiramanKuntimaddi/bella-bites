@@ -27,7 +27,7 @@ export default function OptionCard({
 				{options.map((option, index) => (
 					<motion.button
 						key={option}
-						className={`p-2 border ${
+						className={`p-2 border border-[#d6d5c9] dark:border-[#a22c29] ${
 							selectedOption === option
 								? "bg-[#a22c29] dark:bg-[#a22c29] text-[#d6d5c9] dark:text-[#d6d5c9]"
 								: " !text-[#a22c29] dark:text-[#d6d5c9] bg-[#d6d5c9]"

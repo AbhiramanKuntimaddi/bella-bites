@@ -70,7 +70,7 @@ export default function Home(): JSX.Element {
 		<main className="flex flex-col items-center justify-between text-center p-10">
 			<Header />
 			<motion.div
-				className="text-2xl sm:text-8xl mb-6"
+				className="text-5xl sm:text-8xl mb-6"
 				initial={{ y: 0, opacity: 0 }}
 				animate={{ y: 0, opacity: 1 }}
 				transition={{ duration: 5 }}>

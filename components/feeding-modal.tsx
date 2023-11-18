@@ -14,7 +14,7 @@ interface FeedingModalProps {
 
 const NavigationButton = ({ onClick, text, disabled }: any) => (
 	<motion.button
-		className={`text-[#d6d5c9] bg-[#d6d5c9] dark:bg-[#a22c29] border border-[#d6d5c9] p-2 rounded-md`}
+		className={`text-[#a22c29] dark:text-[#d6d5c9] bg-[#d6d5c9] dark:bg-[#a22c29] border border-[#d6d5c9] p-2 rounded-md`}
 		whileHover={{ scale: 1.1 }}
 		onClick={onClick}
 		disabled={disabled}>
