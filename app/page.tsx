@@ -7,7 +7,6 @@ import FeedingModal from "@/components/feeding-modal";
 import { getFeedingData } from "@/lib/firebase";
 import FeedingCard from "@/components/feeding-card";
 import { AnimatePresence, motion } from "framer-motion";
-import Footer from "@/components/footer";
 import Header from "@/components/header";
 
 // Interface for the feeding entry
@@ -67,14 +66,27 @@ export default function Home(): JSX.Element {
 	}, []); // Empty dependency array means this effect runs once when the component mounts
 
 	return (
-		<main className="flex flex-col items-center justify-between text-center p-10">
+		<main className="App flex flex-col items-center justify-between text-center p-10">
 			<Header />
 			<motion.div
-				className="text-5xl sm:text-8xl mb-6"
+				className="text-5xl sm:text-8xl mb-6 relative"
 				initial={{ y: 0, opacity: 0 }}
 				animate={{ y: 0, opacity: 1 }}
 				transition={{ duration: 5 }}>
 				🐱
+				<motion.span
+					className="inline-flex items-center absolute rounded-md bg-[#a22c29] text-[#d6d5c9] dark:bg-[#d6d5c9] dark:text-[#a22c29] px-2 py-1 text-sm font-medium ring-1 ring-inset ring-gray-500/10 !top-0 !right-0"
+					initial={{ rotate: 45 }}
+					animate={{ rotate: [10, 5, -5, -10, 0, 5, 10] }}
+					transition={{
+						repeat: Infinity,
+						duration: 3,
+						type: "tween",
+						stiffness: 260,
+						damping: 20,
+					}}>
+					Meow!
+				</motion.span>
 			</motion.div>
 			<motion.h1
 				className={`${jua.className} text-2xl sm:text-5xl `}
@@ -92,11 +104,16 @@ export default function Home(): JSX.Element {
 						animate={{ opacity: 1, y: 0 }}
 						transition={{ duration: 0.5 }}>
 						{feedingData.map((entry, index) => (
-							<motion.div className="shadow-2xl"
+							<motion.div
+								className="shadow-2xl"
 								key={entry.id}
 								initial={{ opacity: 0, y: 50, rotate: 10 }}
 								animate={{ opacity: 1, y: 0, rotate: 0 }}
-								transition={{ duration: 0.7, delay: index * 0.2, ease: "easeInOut"}}>
+								transition={{
+									duration: 0.7,
+									delay: index * 0.2,
+									ease: "easeInOut",
+								}}>
 								<FeedingCard entry={entry} />
 							</motion.div>
 						))}
