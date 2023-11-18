@@ -5,6 +5,8 @@ import React, { useState } from "react";
 import { FaTimes, FaCat } from "react-icons/fa";
 import OptionCard from "./option-card";
 import { days, times, whoOptions, whatOptions } from "@/lib/data";
+import { addFeedingData } from "@/lib/firebase"; // Assuming you have a module for Firebase functions
+import { Timestamp } from "firebase/firestore";
 
 interface FeedingModalProps {
   onClose: () => void;
@@ -35,6 +37,24 @@ export default function FeedingModal({ onClose }: FeedingModalProps): JSX.Elemen
 
   const allOptionsSelected =
     selectedDay !== "" && selectedTime !== "" && selectedWho !== "" && selectedWhat !== "";
+
+  const handleFeedingSubmit = async () => {
+    if (allOptionsSelected) {
+      const feedingData = {
+        selectedDay,
+        selectedTime,
+        selectedWho,
+        selectedWhat,
+		timestamp: Timestamp.fromDate(new Date())
+      };
+
+      // Add data to Firestore
+      await addFeedingData(feedingData);
+
+      console.log("Bella is fed!", feedingData);
+      onClose();
+    }
+  };
 
   return (
     <motion.div
@@ -113,18 +133,7 @@ export default function FeedingModal({ onClose }: FeedingModalProps): JSX.Elemen
                       : "bg-[#a22c29] text-[#d6d5c9] dark:bg-[#d6d5c9] dark:text-[#a22c29] cursor-not-allowed"
                   }`}
                   whileHover={{ scale: allOptionsSelected ? 1.1 : 1 }}
-                  onClick={() => {
-                    if (allOptionsSelected) {
-                      console.log(
-                        "Bella is fed!",
-                        selectedDay,
-                        selectedTime,
-                        selectedWho,
-                        selectedWhat
-                      );
-                      onClose();
-                    }
-                  }}
+                  onClick={handleFeedingSubmit}
                   disabled={!allOptionsSelected}
                 >
                   <div className="flex gap-3 justify-center items-center">
