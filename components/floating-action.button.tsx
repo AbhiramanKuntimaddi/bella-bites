@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 import { useState } from "react";
 import FeedingModal from "./feeding-modal";
 import { Jua } from "next/font/google";
-import { FaBowlFood } from "react-icons/fa6"
+import { FaBowlFood } from "react-icons/fa6";
 
 const jua = Jua({
 	weight: "400",
@@ -26,9 +26,12 @@ function FloatingActionButton({}: FloatingActionButtonProps): JSX.Element {
 		<>
 			<motion.button
 				className={`${jua.className} flex items-center justify-center fixed bottom-8 right-8 bg-[#a22c29] text-[#d6d5c9] text-lg p-4 w-20 rounded-full dark:bg-[#d6d5c9] dark:text-[#a22c29]`}
-				whileHover={{ scale: 1.2 }}
-				onClick={handleButtonClick}>
-				 <FaBowlFood className="mr-1 flex items-center justify-center" /> {" "} Log
+				whileHover={{  }}
+				onClick={handleButtonClick}
+				initial={{ y: 50, opacity: 0 }}
+				animate={{ y: 0, opacity: 1 }}
+				transition={{ ease: "easeOut", duration: 2 }}>
+				<FaBowlFood className="mr-1 flex items-center justify-center" /> Log
 			</motion.button>
 
 			{isModalOpen && <FeedingModal onClose={handleCloseModal} />}

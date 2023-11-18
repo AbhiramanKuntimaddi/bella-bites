@@ -6,6 +6,7 @@ import FloatingActionButton from "@/components/floating-action.button";
 import FeedingModal from "@/components/feeding-modal";
 import { getFeedingData } from "@/lib/firebase";
 import FeedingCard from "@/components/feeding-card";
+import { motion } from "framer-motion";
 
 // Interface for the feeding entry
 interface FeedingEntry {
@@ -56,14 +57,34 @@ export default function Home(): JSX.Element {
 
 	return (
 		<main className="flex flex-col items-center justify-between text-center p-10">
-			<div className="text-2xl sm:text-6xl mb-6">🐱</div>
-			<h1 className={`${jua.className} text-2xl sm:text-5xl !top-0`}>
+			<motion.h1
+				className={`${jua.className} text-2xl`}
+				initial={{ y: -50, opacity: 0 }}
+				animate={{ y: 0, opacity: 1 }}
+				transition={{ duration: 0.5 }}>
+				BellaBites
+			</motion.h1>
+			<motion.div
+				className="text-2xl sm:text-8xl mb-6"
+				initial={{ y: -50, opacity: 0 }}
+				animate={{ y: 0, opacity: 1 }}
+				transition={{ duration: 0.5 }}>
+				🐱
+			</motion.div>
+			<motion.h1 className={`${jua.className} text-2xl sm:text-5xl `}
+			initial={{ x: -600, opacity: 0 }}
+			animate={{ x: 0, opacity: 1 }}
+			transition={{ duration: 0.8 }}>
 				Every meal matters for your cat. <br />
-				Bella agrees!
-			</h1>
-			{feedingData.map((entry) => (
-				<FeedingCard key={entry.id} entry={entry} />
-			))}
+				<p className="underline hover:decoration-wavy">Bella agrees!</p>
+			</motion.h1>
+			<div className="mt-8">
+				<div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-4">
+					{feedingData.map((entry) => (
+						<FeedingCard key={entry.id} entry={entry} />
+					))}
+				</div>
+			</div>
 			<FloatingActionButton />
 			{isModalOpen && <FeedingModal onClose={handleCloseModal} />}
 		</main>
