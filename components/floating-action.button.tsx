@@ -25,13 +25,13 @@ function FloatingActionButton({}: FloatingActionButtonProps): JSX.Element {
 	return (
 		<>
 			<motion.button
-				className={`${jua.className} flex items-center justify-center fixed bottom-8 right-8 bg-[#a22c29] text-[#d6d5c9] text-lg p-4 w-20 rounded-full dark:bg-[#d6d5c9] dark:text-[#a22c29]`}
+				className={`${jua.className} flex items-center justify-center fixed bottom-8 right-8 bg-[#a22c29] text-[#d6d5c9] text-lg p-4 w-24 rounded-full dark:bg-[#d6d5c9] dark:text-[#a22c29] shadow-2xl`}
 				whileHover={{  }}
 				onClick={handleButtonClick}
 				initial={{ y: 50, opacity: 0 }}
 				animate={{ y: 0, opacity: 1 }}
 				transition={{ ease: "easeOut", duration: 2 }}>
-				<FaBowlFood className="mr-1 flex items-center justify-center" /> Log
+				🍛 Log
 			</motion.button>
 
 			{isModalOpen && <FeedingModal onClose={handleCloseModal} />}

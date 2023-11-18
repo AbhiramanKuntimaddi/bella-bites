@@ -40,7 +40,7 @@ export default function FeedingCard({ entry }: FeedingCardProps) {
 
 	return (
 		<div
-			className={`${jua.className} relative bg-[#a22c29] dark:bg-[#d6d5c9] text-[#d6d5c9] dark:text-[#a22c29] p-4 rounded-lg shadow-md w-[25rem] lg:w-[35rem]`}>
+			className={`${jua.className} relative bg-[#a22c29] dark:bg-[#d6d5c9] text-[#d6d5c9] dark:text-[#a22c29] p-4 rounded-lg shadow-md w-[15rem] lg:w-[35rem] sm:w-[20rem]`}>
 			<div className="text-2xl">{entry.selectedDay}</div>
 			<div>
 				Time: {entry.selectedTime} {isMorning ? "☀️" : "🌒"}
