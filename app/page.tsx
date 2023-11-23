@@ -4,7 +4,7 @@ import React, { useEffect, useState } from "react";
 import { Jua } from "next/font/google";
 import FloatingActionButton from "@/components/floating-action.button";
 import FeedingModal from "@/components/feeding-modal";
-import { getFeedingData } from "@/lib/firebase";
+import { getFeedingData, getFeedingDataLast7Days } from "@/lib/firebase";
 import FeedingCard from "@/components/feeding-card";
 import { AnimatePresence, motion } from "framer-motion";
 import Header from "@/components/header";
@@ -55,7 +55,8 @@ export default function Home(): JSX.Element {
 	useEffect(() => {
 		const fetchData = async () => {
 			try {
-				const data = await getFeedingData();
+				const data = await getFeedingDataLast7Days();
+				console.log(data);
 				setFeedingData(data);
 			} catch (error) {
 				console.error("Error fetching feeding data:", error);
@@ -99,7 +100,7 @@ export default function Home(): JSX.Element {
 			<div className="mt-8">
 				<AnimatePresence>
 					<motion.div
-						className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-4 sha"
+						className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-4 shadow-lg"
 						initial={{ opacity: 0, y: 50 }}
 						animate={{ opacity: 1, y: 0 }}
 						transition={{ duration: 0.5 }}>

@@ -1,4 +1,4 @@
-import { collection, getDocs, Timestamp, query, where, orderBy, addDoc } from 'firebase/firestore';
+import { collection, getDocs, query, where, orderBy, addDoc, Timestamp, serverTimestamp } from 'firebase/firestore';
 import { db } from "@/app/firebaseConfig"; 
 
 interface FeedingData {
@@ -11,7 +11,11 @@ interface FeedingData {
 
 export const addFeedingData = async (feedingData: FeedingData): Promise<void> => {
     try {
-        const docRef = await addDoc(collection(db, 'feedingData'), feedingData);
+        // Use serverTimestamp() when adding data to Firestore
+        const docRef = await addDoc(collection(db, 'feedingData'), {
+            ...feedingData,
+            timestamp: serverTimestamp(),
+        });
         console.log('Document written with ID: ', docRef.id);
     } catch (e) {
         console.error('Error adding document: ', e);
@@ -19,13 +23,13 @@ export const addFeedingData = async (feedingData: FeedingData): Promise<void> =>
     }
 };
 
-export const getFeedingData = async (): Promise<any[]> => {
+export const getFeedingData = async (): Promise<FeedingData[]> => {
     const querySnapshot = await getDocs(collection(db, 'feedingData'));
-    const data = querySnapshot.docs.map((doc) => doc.data());
+    const data = querySnapshot.docs.map((doc) => doc.data() as FeedingData);
     return data;
 };
 
-export const getFeedingDataLast7Days = async (): Promise<any[]> => {
+export const getFeedingDataLast7Days = async (): Promise<FeedingData[]> => {
     // Calculate the date 7 days ago
     const last7DaysAgo = new Date();
     last7DaysAgo.setDate(last7DaysAgo.getDate() - 7);
@@ -34,10 +38,10 @@ export const getFeedingDataLast7Days = async (): Promise<any[]> => {
     const q = query(
         collection(db, 'feedingData'),
         where('timestamp', '>=', last7DaysAgo),
-        orderBy('timestamp', 'desc')
+        orderBy('timestamp', 'desc') // Use 'asc' for chronological order
     );
 
     const querySnapshot = await getDocs(q);
-    const data = querySnapshot.docs.map((doc) => doc.data());
+    const data = querySnapshot.docs.map((doc) => doc.data() as FeedingData);
     return data;
 };
