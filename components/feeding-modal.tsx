@@ -66,6 +66,7 @@ export default function FeedingModal({
 			setTimeout(() => {
 				setIsAnimating(false);
 				onClose();
+				window.location.reload();
 			}, 500); // Adjust the timeout to match your desired animation duration
 		}
 	};
