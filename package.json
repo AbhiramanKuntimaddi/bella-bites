@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@next/font": "^14.0.3",
+    "@vercel/postgres": "^0.5.1",
     "firebase": "^10.6.0",
     "framer-motion": "^10.16.5",
     "next": "14.0.3",
