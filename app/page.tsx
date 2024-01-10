@@ -57,7 +57,14 @@ export default function Home(): JSX.Element {
 			try {
 				const data = await getFeedingDataLast7Days();
 				console.log(data);
-				setFeedingData(data);
+				const transformedData: FeedingEntry[] = data.map(
+					(feedingDataItem, index) => ({
+						...feedingDataItem,
+						id: index.toString(),
+					})
+				);
+
+				setFeedingData(transformedData);
 			} catch (error) {
 				console.error("Error fetching feeding data:", error);
 			}
